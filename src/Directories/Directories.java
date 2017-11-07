@@ -21,16 +21,7 @@ public class Directories {
     public static void main(String[] args) {
         String path = "C:\\Users\\LAPTOP\\TestDir";
         String path2 = "C:\\Users\\LAPTOP";
-        run(path);
-      /*  try {
-            FileOutput fo = new FileOutput();
-            fo.writeLine("This is a test");
-            fo.close();
-            //System.out.println(fo.getPathname());
-        } catch (IOException ex) {
-            Logger.getLogger(Directories.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+        run(path2);
     }
     public static void run(String startingPath){
         try {
@@ -53,7 +44,7 @@ public class Directories {
         String[] contents = file.list();
         //Create a List to hold the directories;
         ArrayList<String> directories = new ArrayList<String>();
-        System.out.println("\n" + path);
+        System.out.println(path);
         fo.writeLine(path);
         //if directory has contents process them
         if(contents != null && contents.length > 0){
@@ -69,6 +60,8 @@ public class Directories {
                     directories.add(path + "\\" + contents[x]);
                 }
             }
+            fo.writeLine("");
+            System.out.println("");
             //PROCESS DIRECTORIES RECURSIVELY
             for (int y = 0 ; y < directories.size() ; ++y){
                 findContents(directories.get(y), fo);
