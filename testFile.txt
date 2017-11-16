@@ -1,0 +1,16 @@
+C:\Intel
+
+C:\Intel\GfxCPLBatchFiles
+{EC94D02F-D200-4428-9531-05AF7F9799CB}.bat
+
+C:\Intel\gp
+
+C:\Intel\gp\Test1
+test.txt
+
+C:\Intel\Logs
+IntelCpHDCPSvc.log
+IntelCPHS.log
+IntelGFX.log
+IntelGFXCoin.log
+

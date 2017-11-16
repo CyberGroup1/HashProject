@@ -2,6 +2,7 @@ package Directories;
 
 import java.io.File;
 import java.io.IOException;
+import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,18 +18,18 @@ import java.util.logging.Logger;
  * @author LAPTOP
  */
 public class Directories {
-    //Main Driver 
-    public static void main(String[] args) {
-        String path = "C:\\Users\\LAPTOP\\TestDir";
-        String path2 = "C:\\Users\\LAPTOP";
-        run(path2);
-    }
-    public static void run(String startingPath){
+    
+    public static void run(String startingPath, String algo){
         try {
-            //LOGIC GOES HERE
+            //set algorithm
+            if(algo.equals("SHA-256"))
+                algo = "SHA-256";
+            else
+                algo = "MD5";
+            
             FileOutput fo = new FileOutput();
-            findContents(startingPath, fo);
-            System.out.println("\n\n The path of the file is: " + fo.getPathname());
+            findContents(startingPath, fo, algo);
+            System.out.println("\n\nThe path of the file is: " + fo.getPathname());
             fo.close();
         } catch (IOException ex) {
             Logger.getLogger(Directories.class.getName()).log(Level.SEVERE, null, ex);
@@ -37,22 +38,24 @@ public class Directories {
     
     
     // Recursive function that processes directories
-    private static void findContents(String path, FileOutput fo) throws IOException{
+    private static void findContents(String path, FileOutput fo, String algorithm) throws IOException{
         //create file object for the path passed in
         File file = new File(path);
         //get the contents of the file
         String[] contents = file.list();
         //Create a List to hold the directories;
         ArrayList<String> directories = new ArrayList<String>();
-        System.out.println(path);
-        fo.writeLine(path);
+
         //if directory has contents process them
+        File file2 = null;
         if(contents != null && contents.length > 0){
+            //System.out.println(path);
+            fo.writeLine(path);
             for (int x = 0 ; x < contents.length ; x++){
-                File file2 = new File(path + "\\" + contents[x]);
+                file2 = new File(path + "\\" + contents[x]);
                 if (file2.isFile()){
                     //DO THINGS WITH THE FILE HERE
-                    System.out.println(contents[x]);
+                    //System.out.println(contents[x]);
                     fo.writeLine(contents[x]);
                 }
                 else if(file2.isDirectory()){
@@ -61,10 +64,10 @@ public class Directories {
                 }
             }
             fo.writeLine("");
-            System.out.println("");
+            //System.out.println("");
             //PROCESS DIRECTORIES RECURSIVELY
             for (int y = 0 ; y < directories.size() ; ++y){
-                findContents(directories.get(y), fo);
+                findContents(directories.get(y), fo, algorithm);
             }
         }
         
