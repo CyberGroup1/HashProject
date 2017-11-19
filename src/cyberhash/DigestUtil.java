@@ -33,19 +33,13 @@ public class DigestUtil {
         return md.digest();
     }
 
-    public static String getDigestString(InputStream in, String algorithm) throws Throwable {
+    public static String getDigestString(File file, String algorithm) throws Throwable {
+        InputStream in = new FileInputStream(file);
         byte[] digest = getDigest(in, algorithm);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < digest.length; i++) {
             sb.append(String.format("%x", digest[i]));
         }
         return sb.toString();
-    }
-
-    public static void main(String[] args) throws Throwable {
-        File f = new File("Readme.txt");
-        System.out.println();
-        System.out.println("SHA-256: " + getDigestString(new FileInputStream(f), "SHA-256"));
-        System.out.println("SHA-1: " + getDigestString(new FileInputStream(f), "SHA-1"));
     }
 }
